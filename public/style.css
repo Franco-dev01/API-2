@@ -1,0 +1,55 @@
+body{
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+#result{
+    background-color: orange;
+}
+
+header{
+    background-color: rgb(6, 37, 65);
+    font-size: 50px;
+}
+.central{
+    min-height: 250px;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+a:hover{
+    background-color: orange;
+    transition: all 2s;
+    border-radius: 20px;
+}
+.lab{
+    font-size: 50px;
+    text-shadow: 1px 3px 2px 2px;
+}
+input{
+    width: 500px;
+    height: 50px;
+    font-size: 30px;
+
+    border-radius: 20px;
+}
+
+button:hover{
+    background-color: green;
+}
+button{
+    border-radius: 20px;
+    width: 150px;
+    height: 50px;
+}
+
+footer{
+    text-align: center;
+    
+    height: 200px;
+    color: white;
+    font-size: 50px;
+    background-color: rgb(6, 37, 65);
+}

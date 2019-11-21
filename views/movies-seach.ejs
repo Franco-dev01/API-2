@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../public/style.css">
+    <title>page de recherche</title>
+</head>
+<body>
+        <% include ./partials/head %>
+    <h1>votre recherche sur<em>The movies Database</em></h1>
+
+
+    <div class="search">
+        <label for="s" class="lab">lancer une recherche</label><br>
+        <input style="margin-top: 50px;" type="text" name="term" id="term" placeholder="titre du film">
+
+        <button  id="btnSearch">recherche</button><br><br>
+
+        <div id="results">
+        </div>
+    </div>
+
+
+
+
+    <% include ./partials/footer %>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+    <script>
+
+    const KEY="7843f8d22a43911f15301ef8d76338ae";
+
+    const term=document.querySelector('#term');
+    const btnSearch=document.querySelector('#btnSearch')
+
+
+    btnSearch.addEventListener('click',search);
+
+    let resultsDiv=document.querySelector('#results');
+
+
+    function search(){
+        const query=`https://api.themoviedb.org/3/search/movie?api_key=${KEY}&query=${term.value}&language=fr-FR`;
+
+        axios.get(query)
+        .then(function(response){
+            console.log(response)
+            displayResults(response.data.results)
+        });
+    }
+
+
+    function displayResults(results){
+      resultsDiv.innerHtml='';
+        for(result of results){
+       let moviesDiv=document.createElement('div');
+      //
+      // Ajout du titre et du contenu de chaque article
+      var titreElt = document.createElement("h1");
+
+
+    var img='https://image.tmdb.org/t/p/w500_and_h282_face';
+
+
+      titreElt.textContent = result.title;
+      var contenuElt = document.createElement("p");
+      contenuElt.textContent =result.poster_path
+      resultsDiv.appendChild(titreElt);
+      resultsDiv.appendChild(contenuElt);
+
+
+        }
+    }
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../public/style.css">
+    <title>vous etes ici sur la page de film</title>
+</head>
+<body>
+        <% include ./partials/head %>
+
+        <h1> <%=title%> </h1>
+
+        <div>
+            <% for(mouvies of mouvies){%>
+                <div>
+                    <%= mouvies.title%> ( <%= mouvies.year %>)
+
+                    <% } %>
+                    <div class="french-mouvies">
+                    </div>
+                </div><br>
+                <div>
+                    <form method="POST" action="/mouvies">
+                        <!-- le données sont poste a partir de name du formulaire suivant la root /mouvies -->
+                        <label >le titre du film</label>
+                        <input type="text" name="title" class="title">
+
+                        <label >l'année du film</label>
+                        <input type="text" name="year" class="year">
+                        <button type="submit">submit</button>
+                    </form>
+                </div>
+        </div>
+
+    <% include ./partials/footer %>
+    <script>
+
+    const forme =document.querySelector('form');
+    forme.addEventListener('submit',addMovie);
+    function addMovie(event){
+        event.preventDefault();
+
+        if(fetch){
+            fetch('/mouvies',{
+                method:'POST',
+                body:new FormData(forme)
+            })
+            .then(checkStatus)
+            .catch(function(error){
+                console.error('request failed',error);
+            })
+
+        }else{
+            //JQuery,XHR
+        }
+    }
+
+
+    function checkStatus(response){
+        if(response.status>=200 && response.status<300){
+            let newMovieDiv=document.createElement('div');
+            const title=document.querySelector('.title').value;
+            const year=document.querySelector('.year').value;
+            for (var i = 0; i < response.length; i++) {
+              response[i]
+              newMovieDiv.innerHTML=`${response[i]} ${title} (${year})`;
+              document.querySelector('.french-mouvies').appendChild(newMovieDiv);
+              forme.reset();
+            }
+
+        }
+    }
+
+    </script>
+</body>
+</html>
